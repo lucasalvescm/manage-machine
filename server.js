@@ -32,7 +32,13 @@ db.on('disconnected', function () {
   console.log('MongoDB disconnected!');
   mongoose.connect(dbURI, { useNewUrlParser: true }, { auto_reconnect: true });
 });
-mongoose.connect(dbURI, { useNewUrlParser: true }, { auto_reconnect: true });
+mongoose.connect(
+  dbURI, { useNewUrlParser: true }, { auto_reconnect: true }
+).then(() => {
+  // CRONS
+  const tasks = require('./src/tasks/EventTask');
+  cron.schedule("* * * * *", () => tasks.event());
+});
 
 
 
@@ -40,10 +46,5 @@ mongoose.connect(dbURI, { useNewUrlParser: true }, { auto_reconnect: true });
 requireDir("./src/models")
 // Inicando as rotas
 app.use('/api', require('./src/routes'));
-
-// CRONS
-const tasks = require('./src/tasks/EventTask')
-// cron.schedule("* * * * *", () => console.log(tasks.event()))
-tasks.event();
 
 app.listen(3001, () => console.log(`Running in port ${3001}`));
