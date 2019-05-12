@@ -12,7 +12,7 @@ services:
   app:
     container_name: manage-machine
     restart: always
-    build: .
+    build: ./server
     ports:
       - "3001:3001"
     links:
