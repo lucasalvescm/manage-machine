@@ -2,19 +2,19 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const requireDir = require('require-dir');
+const cron = require("node-cron");
 
 // Iniciando o app
 const app = express();
 app.use(express.json());
 app.use(cors());
 
-
+// Configurando o db
 const dbURI = "mongodb://localhost:27017/manage-machine"
 var db = mongoose.connection;
 db.on('connecting', function () {
   console.log('connecting to MongoDB...');
 });
-
 db.on('error', function (error) {
   console.error('Error in MongoDb connection: ' + error);
   mongoose.disconnect();
@@ -36,8 +36,14 @@ mongoose.connect(dbURI, { useNewUrlParser: true }, { auto_reconnect: true });
 
 
 
+// Require Models
 requireDir("./src/models")
-
+// Inicando as rotas
 app.use('/api', require('./src/routes'));
+
+// CRONS
+const tasks = require('./src/tasks/EventTask')
+// cron.schedule("* * * * *", () => console.log(tasks.event()))
+tasks.event();
 
 app.listen(3001, () => console.log(`Running in port ${3001}`));
