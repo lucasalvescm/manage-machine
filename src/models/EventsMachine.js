@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate');
 
-const MachineSchema = new mongoose.Schema({
-  name: {
+const EventsMachineSchema = new mongoose.Schema({
+  code_status: {
     type: String,
     required: true
   },
-  last_status: {
+  code_machine: {
     type: String,
-    required: false
+    required: true
   },
   createdAt: {
     type: Date,
@@ -16,6 +16,6 @@ const MachineSchema = new mongoose.Schema({
   }
 });
 
-MachineSchema.plugin(mongoosePaginate);
+EventsMachineSchema.plugin(mongoosePaginate);
 
-mongoose.model('Machine', MachineSchema);
+mongoose.model('EventsMachine', EventsMachineSchema);

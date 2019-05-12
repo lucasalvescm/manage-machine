@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate');
 
-const MachineSchema = new mongoose.Schema({
-  name: {
+const StatusSchema = new mongoose.Schema({
+  code: {
     type: String,
     required: true
   },
-  last_status: {
+  name: {
     type: String,
-    required: false
+    required: true
   },
   createdAt: {
     type: Date,
@@ -16,6 +16,6 @@ const MachineSchema = new mongoose.Schema({
   }
 });
 
-MachineSchema.plugin(mongoosePaginate);
+StatusSchema.plugin(mongoosePaginate);
 
-mongoose.model('Machine', MachineSchema);
+mongoose.model('Status', StatusSchema);
