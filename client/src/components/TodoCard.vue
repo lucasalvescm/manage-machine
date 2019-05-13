@@ -3,7 +3,7 @@
     <header class="card-header">
       <p class="card-header-title has-text-left">{{hoje}}</p>
       <div class="has-text-right">
-        <p class="card-header-title">{{tarefas.length}} máquinas</p>
+        <p class="card-header-title">{{machines.length}} máquinas</p>
       </div>
     </header>
     <div class="card-content">
@@ -11,7 +11,12 @@
         <novo-todo></novo-todo>
       </div>
       <div class="content">
-        <todo-list @check="checkTarefa" @remover="removerTarefa"></todo-list>
+        <todo-list
+          :machines="machines"
+          @listMachines="listMachines"
+          @check="checkTarefa"
+          @remover="removerTarefa"
+        ></todo-list>
       </div>
     </div>
   </div>
@@ -20,6 +25,7 @@
 <script>
 import NovoTodo from "./NovoTodo";
 import TodoList from "./TodoList";
+import axios from "axios";
 export default {
   name: "todo-card",
   components: {
@@ -51,7 +57,7 @@ export default {
         "Novembro",
         "Dezembro"
       ],
-      tarefas: []
+      machines: []
     };
   },
   computed: {
@@ -63,12 +69,36 @@ export default {
     }
   },
   methods: {
+    listMachines() {
+      axios
+        .get("http://localhost:3001/api/machines")
+        .then(response => {
+          this.machines = response.data.docs;
+        })
+        .catch(error => {
+          console.log(error);
+          this.errored = true;
+        })
+        .finally(() => (this.loading = false));
+    },
     checkTarefa(index) {
-      this.tarefas[index]["checked"] = !this.tarefas[index]["checked"];
+      // this.tarefas[index]["checked"] = !this.tarefas[index]["checked"];
     },
     removerTarefa(index) {
-      this.tarefas.splice(index, 1);
+      // this.tarefas.splice(index, 1);
     }
+  },
+  mounted() {
+    axios
+      .get("http://localhost:3001/api/machines")
+      .then(response => {
+        this.machines = response.data.docs;
+      })
+      .catch(error => {
+        console.log(error);
+        this.errored = true;
+      })
+      .finally(() => (this.loading = false));
   }
 };
 </script>

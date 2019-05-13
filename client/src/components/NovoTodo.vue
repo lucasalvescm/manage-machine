@@ -34,6 +34,7 @@ export default {
   },
   methods: {
     createMachine() {
+      let that = this;
       axios
         .post(
           "http://localhost:3001/api/machines",
@@ -46,7 +47,9 @@ export default {
             }
           }
         )
-        .then(response => {})
+        .then(response => {
+          that.$emit("newMachine");
+        })
         .catch(e => {
           console.error(e);
         });

@@ -52,18 +52,7 @@ export default {
       this.$emit("remover", index);
     }
   },
-  mounted() {
-    axios
-      .get("http://localhost:3001/api/machines")
-      .then(response => {
-        this.machines = response.data.docs;
-      })
-      .catch(error => {
-        console.log(error);
-        this.errored = true;
-      })
-      .finally(() => (this.loading = false));
-  }
+  mounted() {}
 };
 </script>
 
