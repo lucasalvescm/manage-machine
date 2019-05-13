@@ -9,7 +9,13 @@
               <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
             </a>
 
-            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <a
+              role="button"
+              class="navbar-burger burger"
+              aria-label="menu"
+              aria-expanded="false"
+              data-target="navbarBasicExample"
+            >
               <span aria-hidden="true"></span>
               <span aria-hidden="true"></span>
               <span aria-hidden="true"></span>
@@ -18,22 +24,14 @@
 
           <div id="navbarBasicExample" class="navbar-menu">
             <div class="navbar-start">
-              <a class="navbar-item" @click="swapComponent('machine-card')">
-                Máquinas
-              </a>
+              <a class="navbar-item" @click="swapComponent('machine-card')">Máquinas</a>
 
-              <a class="navbar-item" @click="swapComponent('status-card')">
-                Status
-              </a>
+              <a class="navbar-item" @click="swapComponent('status-card')">Status</a>
 
-              <a class="navbar-item" @click="swapComponent('event-card')">
-                Configurações
-              </a>
+              <a class="navbar-item" @click="swapComponent('event-card')">Configurações</a>
             </div>
 
-            <div class="navbar-end">
-              
-            </div>
+            <div class="navbar-end"></div>
           </div>
         </nav>
       </div>
@@ -75,15 +73,14 @@ export default {
     EventCard
   },
   methods: {
-    swapComponent: function(component)
-    {
+    swapComponent: function(component) {
       this.currentComponent = component;
     }
   },
   data() {
     return {
       currentComponent: MachineCard
-    }
+    };
   }
 };
 </script>

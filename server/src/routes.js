@@ -4,6 +4,7 @@ const routes = express.Router();
 const MachineController = require('./controllers/MachineController')
 const StatusController = require('./controllers/StatusController')
 const EventsMachineController = require('./controllers/EventsMachineController')
+const ConfigCronController = require('./controllers/ConfigCronController')
 // Machine routes
 routes.get("/machines", MachineController.index);
 routes.post("/machines", MachineController.store);
@@ -28,5 +29,8 @@ routes.post("/events", EventsMachineController.store);
 routes.get("/events/:id", EventsMachineController.show);
 routes.put("/events/:id", EventsMachineController.update);
 routes.delete("/events/:id", EventsMachineController.destroy);
+
+routes.get("/configcron", ConfigCronController.index);
+routes.post("/configcron", ConfigCronController.store);
 
 module.exports = routes;

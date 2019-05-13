@@ -26,7 +26,7 @@
 <script>
 import axios from "axios";
 export default {
-  name: "novo-todo",
+  name: "machine-create",
   data() {
     return {
       machine: ""

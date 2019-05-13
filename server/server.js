@@ -20,7 +20,11 @@ db.on('connecting', function () {
 });
 db.on('error', function (error) {
   console.error('Error in MongoDb connection: ' + error);
-  mongoose.disconnect();
+  console.log("Tentando reconectar novamente em 5 segundos!")
+  setTimeout(function () {
+    mongoose.disconnect();
+  }, 10000);
+
 });
 db.on('connected', function () {
   console.log('MongoDB connected!');
@@ -46,6 +50,6 @@ app.use('/api', require('./src/routes'));
 
 // CRONS
 const tasks = require('./src/tasks/EventTask');
-cron.schedule("* * * * *", () => tasks.event());
+// cron.schedule("* * * * *", () => tasks.event());
 
 app.listen(3001, () => console.log(`Running in port ${3001}`));

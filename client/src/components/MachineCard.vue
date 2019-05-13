@@ -2,18 +2,31 @@
   <div class="card">
     <header class="card-header">
       <p class="card-header-title has-text-left">Máquinas</p>
-      <div class="has-text-right">
-        <p class="card-header-title">{{machines.length}} máquinas</p>
-      </div>
+      <div class="has-text-right"></div>
     </header>
+
     <div class="card-content">
       <div class="content">
         <machine-create @newMachine="listMachines"></machine-create>
       </div>
       <div class="content">
-        
         <machine-list :machines="machines" @refresh="listMachines"></machine-list>
       </div>
+
+      <nav class="pagination" role="navigation" aria-label="pagination">
+        <a class="pagination-previous" title="This is the first page" disabled>Anterior</a>
+        <a class="pagination-next">Próxima</a>
+        <ul class="pagination-list">
+          <li v-for="number in pages">
+            <a
+              @click="listMachines(number)"
+              class="pagination-link"
+              v-bind:class="{ 'is-current':(pageCurrent === number) }"
+              aria-label="Goto page number"
+            >{{number}}</a>
+          </li>
+        </ul>
+      </nav>
     </div>
   </div>
 </template>
@@ -31,18 +44,26 @@ export default {
   },
   data() {
     return {
-      machines: []
+      machines: [],
+      pages: [],
+      pageCurrent: 1,
+      errored: false
     };
   },
-  computed: {
-    
-  },
+  computed: {},
   methods: {
-    listMachines() {
+    listMachines(page) {
+      if (!page) {
+        page = this.pageCurrent;
+      }
       axios
-        .get("http://localhost:3001/api/machines")
+        .get("http://localhost:3001/api/machines/?page=" + page)
         .then(response => {
-          this.machines = response.data.docs;
+          if (response.data) {
+            this.machines = response.data.docs;
+            this.pages = response.data.pages;
+            this.pageCurrent = parseInt(response.data.page);
+          }
         })
         .catch(error => {
           console.log(error);
@@ -58,16 +79,7 @@ export default {
     }
   },
   mounted() {
-    axios
-      .get("http://localhost:3001/api/machines")
-      .then(response => {
-        this.machines = response.data.docs;
-      })
-      .catch(error => {
-        console.log(error);
-        this.errored = true;
-      })
-      .finally(() => (this.loading = false));
+    this.listMachines();
   }
 };
 </script>
