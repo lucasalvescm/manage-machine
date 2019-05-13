@@ -26,7 +26,7 @@
         <tr v-for="(machine, index) in machines">
           <th>{{machine.name}}</th>
           <td>{{machine.last_status}}</td>
-          <modal-machine v-show="showModal" @close="showModal = false" @updateMachine="updateMachine" :machine="machineCurrent"></modal-machine>
+          
           <td>
             <a class="button is-danger is-small" @click="remove(machine._id)">
               <span class="icon is-small">
@@ -40,6 +40,7 @@
             </a>
           </td>
         </tr>
+        <modal-machine v-show="showModal" @close="showModal = false" @updateMachine="updateMachine" :machineToUpdate="machineCurrent"></modal-machine>
       </tbody>
     </table>
   </div>
@@ -64,6 +65,7 @@ export default {
     edit(machine) {
       this.machineCurrent = machine;
       this.showModal = true;
+      
     },
     updateMachine(){
       this.showModal = false;

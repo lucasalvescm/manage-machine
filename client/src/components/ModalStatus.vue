@@ -5,11 +5,15 @@
        <div class="modal-content">
          
          <div class="box">
-           <label class="label">Atualizar Máquina</label>
+           <label class="label">Atualizar Status</label>
            <div class="field">
             <label class="label" style="text-align:left">Nome</label>
             <div class="control">
               <input class="input" type="text" placeholder="Nome da máquina" v-model="name">
+            </div>
+            <label class="label" style="text-align:left">Código</label>
+            <div class="control">
+              <input class="input" type="text" placeholder="Código" v-model="code">
             </div>
           </div>
           <div class="control">
@@ -25,25 +29,28 @@
 <script>
 import axios from "axios";
 export default {
-  name: "modal-machine",
-  props: ["machineToUpdate"],
+  name: "modal-status",
+  props: ["statusToUpdate"],
   data() {
     return{
-      name: this.machineToUpdate.name
+      name: this.statusToUpdate.name,
+      code: this.statusToUpdate.code
     }
   },
   watch: { 
-    machineToUpdate: function(newVal, oldVal) {
+    statusToUpdate: function(newVal, oldVal) {
       this.name = newVal.name
+      this.code = newVal.code
     }
   },
   methods: {
     update(){
       axios
         .put(
-          "http://localhost:3001/api/machines/"+this.machineToUpdate._id,
+          "http://localhost:3001/api/status/"+this.statusToUpdate._id,
           {
-            name: this.name
+            name: this.name,
+            code: this.code
           },
           {
             headers: {
@@ -53,7 +60,7 @@ export default {
         )
         .then(response => {
           this.name = ""
-          this.$emit("updateMachine");
+          this.$emit("updateStatus");
         })
         .catch(e => {
           console.error(e);

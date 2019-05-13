@@ -19,7 +19,7 @@ function newStatus(machine, count_status) {
   Status.find(query, (err, result) => new_status = result)
     .limit(1).skip(random)
     .then(() => {
-      if (new_status[0]) {
+      if (new_status.length > 0) {
         console.log(`STATUS NOVO(${machine.id}): ${new_status[0].name}`)
         // Atualiza o last_status da maquina
         Machine.updateOne(

@@ -32,8 +32,14 @@
                 <i class="fa fa-trash"></i>
               </span>
             </a>
+            <a class="button is-warning is-small" @click="edit(sts)">
+              <span class="icon is-small">
+                <i class="fa fa-edit"></i>
+              </span>
+            </a>
           </td>
         </tr>
+        <modal-status v-show="showModal" @close="showModal = false" @updateStatus="updateStatus" :statusToUpdate="statusCurrent"></modal-status>
       </tbody>
     </table>
   </div>
@@ -41,13 +47,29 @@
 
 <script>
 import axios from "axios";
+import ModalStatus from "./ModalStatus";
 export default {
-  name: "todo-list",
+  name: "status-list",
   props: ["status"],
   data() {
-    return {};
+    return {
+      showModal: false,
+      statusCurrent: ""
+    };
+  },
+  components: {
+    ModalStatus
   },
   methods: {
+    edit(status) {
+      this.statusCurrent = status;
+      this.showModal = true;
+      
+    },
+    updateStatus(){
+      this.showModal = false;
+      this.$emit("refresh");
+    },
     remover(index) {
       axios
         .delete(
