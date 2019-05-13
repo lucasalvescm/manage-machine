@@ -11,6 +11,7 @@
         <machine-create @newMachine="listMachines"></machine-create>
       </div>
       <div class="content">
+        
         <machine-list :machines="machines" @refresh="listMachines"></machine-list>
       </div>
     </div>
@@ -20,6 +21,7 @@
 <script>
 import MachineCreate from "./MachineCreate";
 import MachineList from "./MachineList";
+
 import axios from "axios";
 export default {
   name: "todo-card",

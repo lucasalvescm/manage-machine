@@ -26,10 +26,16 @@
         <tr v-for="(machine, index) in machines">
           <th>{{machine.name}}</th>
           <td>{{machine.last_status}}</td>
+          <modal-machine v-show="showModal" @close="showModal = false" @updateMachine="updateMachine" :machine="machineCurrent"></modal-machine>
           <td>
-            <a class="button is-danger is-small" @click="remover(machine._id)">
+            <a class="button is-danger is-small" @click="remove(machine._id)">
               <span class="icon is-small">
                 <i class="fa fa-trash"></i>
+              </span>
+            </a>
+            <a class="button is-warning is-small" @click="edit(machine)">
+              <span class="icon is-small">
+                <i class="fa fa-edit"></i>
               </span>
             </a>
           </td>
@@ -41,14 +47,29 @@
 
 <script>
 import axios from "axios";
+import ModalMachine from "./ModalMachine";
 export default {
   name: "todo-list",
   props: ["machines"],
   data() {
-    return {};
+    return {
+      showModal: false,
+      machineCurrent: ""
+    };
+  },
+  components: {
+    ModalMachine
   },
   methods: {
-    remover(index) {
+    edit(machine) {
+      this.machineCurrent = machine;
+      this.showModal = true;
+    },
+    updateMachine(){
+      this.showModal = false;
+      this.$emit("refresh");
+    },
+    remove(index) {
       axios
         .delete(
           "http://localhost:3001/api/machines/"+index,
