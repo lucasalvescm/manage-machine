@@ -8,15 +8,10 @@
     </header>
     <div class="card-content">
       <div class="content">
-        <novo-todo></novo-todo>
+        <novo-todo @newMachine="listMachines"></novo-todo>
       </div>
       <div class="content">
-        <todo-list
-          :machines="machines"
-          @listMachines="listMachines"
-          @check="checkTarefa"
-          @remover="removerTarefa"
-        ></todo-list>
+        <todo-list :machines="machines" @check="checkTarefa" @remover="removerTarefa"></todo-list>
       </div>
     </div>
   </div>
