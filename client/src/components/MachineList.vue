@@ -27,7 +27,7 @@
           <th>{{machine.name}}</th>
           <td>{{machine.last_status}}</td>
           <td>
-            <a class="button is-danger is-small" @click="remover(index)">
+            <a class="button is-danger is-small" @click="remover(machine._id)">
               <span class="icon is-small">
                 <i class="fa fa-trash"></i>
               </span>
@@ -49,8 +49,23 @@ export default {
   },
   methods: {
     remover(index) {
-      this.$emit("remover", index);
+      axios
+        .delete(
+          "http://localhost:3001/api/machines/"+index,
+          {
+            headers: {
+              "Content-Type": "application/json"
+            }
+          }
+        )
+        .then(response => {
+          this.$emit("refresh");
+        })
+        .catch(e => {
+          console.error(e);
+        });
     }
+    
   },
   mounted() {}
 };

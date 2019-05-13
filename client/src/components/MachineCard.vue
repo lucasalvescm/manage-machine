@@ -1,67 +1,39 @@
 <template>
   <div class="card">
     <header class="card-header">
-      <p class="card-header-title has-text-left">{{hoje}}</p>
+      <p class="card-header-title has-text-left">Máquinas</p>
       <div class="has-text-right">
         <p class="card-header-title">{{machines.length}} máquinas</p>
       </div>
     </header>
     <div class="card-content">
       <div class="content">
-        <novo-todo @newMachine="listMachines"></novo-todo>
+        <machine-create @newMachine="listMachines"></machine-create>
       </div>
       <div class="content">
-        <todo-list :machines="machines" @check="checkTarefa" @remover="removerTarefa"></todo-list>
+        <machine-list :machines="machines" @refresh="listMachines"></machine-list>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import NovoTodo from "./NovoTodo";
-import TodoList from "./TodoList";
+import MachineCreate from "./MachineCreate";
+import MachineList from "./MachineList";
 import axios from "axios";
 export default {
   name: "todo-card",
   components: {
-    NovoTodo,
-    TodoList
+    MachineCreate,
+    MachineList
   },
   data() {
     return {
-      dias: [
-        "Domingo",
-        "Segunda",
-        "Terça",
-        "Quarta",
-        "Quinta",
-        "Sexta",
-        "Sábado"
-      ],
-      meses: [
-        "Janeiro",
-        "Fevereiro",
-        "Março",
-        "Abril",
-        "Maio",
-        "Junho",
-        "Julho",
-        "Agosto",
-        "Setembro",
-        "Outubro",
-        "Novembro",
-        "Dezembro"
-      ],
       machines: []
     };
   },
   computed: {
-    hoje: function() {
-      let novaData = new Date();
-      return `${this.dias[novaData.getDay()]}, ${novaData.getDate()} de ${
-        this.meses[novaData.getMonth()]
-      }`;
-    }
+    
   },
   methods: {
     listMachines() {
