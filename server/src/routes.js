@@ -10,6 +10,12 @@ routes.post("/machines", MachineController.store);
 routes.get("/machines/:id", MachineController.show);
 routes.put("/machines/:id", MachineController.update);
 routes.delete("/machines/:id", MachineController.destroy);
+routes.options("/machines", (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.setHeader("Access-Control-Allow-Headers", 'Origin, X-Requested-With, Content-Type, Accept');
+  res.end()
+});
 // Status routes
 routes.get("/status", StatusController.index);
 routes.post("/status", StatusController.store);

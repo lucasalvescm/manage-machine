@@ -15,6 +15,7 @@ module.exports = {
   },
 
   async store(req, res) {
+    console.log(req.body)
     const machine = await Machine.create(req.body);
     return res.json(machine);
   },

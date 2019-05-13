@@ -9,6 +9,8 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+
+
 // Configurando o db
 const dbURI = "mongodb://localhost:27017/manage-machine"
 // const dbURI = "mongodb://mongo:27017/manage-machine"
