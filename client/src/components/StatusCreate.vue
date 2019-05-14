@@ -38,14 +38,14 @@ export default {
   data() {
     return {
       name: "",
-      code:""
+      code: ""
     };
   },
   methods: {
     createStatus() {
       axios
         .post(
-          "http://localhost:3001/api/status",
+          "http://localhost/api/status",
           {
             name: this.name,
             code: this.code

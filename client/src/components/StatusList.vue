@@ -39,7 +39,12 @@
             </a>
           </td>
         </tr>
-        <modal-status v-show="showModal" @close="showModal = false" @updateStatus="updateStatus" :statusToUpdate="statusCurrent"></modal-status>
+        <modal-status
+          v-show="showModal"
+          @close="showModal = false"
+          @updateStatus="updateStatus"
+          :statusToUpdate="statusCurrent"
+        ></modal-status>
       </tbody>
     </table>
   </div>
@@ -64,22 +69,18 @@ export default {
     edit(status) {
       this.statusCurrent = status;
       this.showModal = true;
-      
     },
-    updateStatus(){
+    updateStatus() {
       this.showModal = false;
       this.$emit("refresh");
     },
     remover(index) {
       axios
-        .delete(
-          "http://localhost:3001/api/status/"+index,
-          {
-            headers: {
-              "Content-Type": "application/json"
-            }
+        .delete("http://localhost/api/status/" + index, {
+          headers: {
+            "Content-Type": "application/json"
           }
-        )
+        })
         .then(response => {
           this.$emit("refresh");
         })
@@ -87,7 +88,6 @@ export default {
           console.error(e);
         });
     }
-    
   },
   mounted() {}
 };

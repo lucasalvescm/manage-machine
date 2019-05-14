@@ -17,7 +17,7 @@ module.exports = {
           'vue-style-loader',
           'css-loader'
         ],
-      },      {
+      }, {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: {
@@ -66,16 +66,7 @@ if (process.env.NODE_ENV === 'production') {
         NODE_ENV: '"production"'
       }
     }),
-    new UglifyJsPlugin({
-      "uglifyOptions":
-          {
-              compress: {
-                  warnings: false
-              },
-              sourceMap: true
-          }
-      }
-    ),
+    new UglifyJsPlugin(),
     new webpack.LoaderOptionsPlugin({
       minimize: true
     })

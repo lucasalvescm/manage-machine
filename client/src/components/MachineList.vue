@@ -26,7 +26,7 @@
         <tr v-for="(machine, index) in machines">
           <th>{{machine.name}}</th>
           <td>{{machine.last_status}}</td>
-          
+
           <td>
             <a class="button is-danger is-small" @click="remove(machine._id)">
               <span class="icon is-small">
@@ -40,7 +40,12 @@
             </a>
           </td>
         </tr>
-        <modal-machine v-show="showModal" @close="showModal = false" @updateMachine="updateMachine" :machineToUpdate="machineCurrent"></modal-machine>
+        <modal-machine
+          v-show="showModal"
+          @close="showModal = false"
+          @updateMachine="updateMachine"
+          :machineToUpdate="machineCurrent"
+        ></modal-machine>
       </tbody>
     </table>
   </div>
@@ -65,22 +70,18 @@ export default {
     edit(machine) {
       this.machineCurrent = machine;
       this.showModal = true;
-      
     },
-    updateMachine(){
+    updateMachine() {
       this.showModal = false;
       this.$emit("refresh");
     },
     remove(index) {
       axios
-        .delete(
-          "http://localhost:3001/api/machines/"+index,
-          {
-            headers: {
-              "Content-Type": "application/json"
-            }
+        .delete("http://localhost/api/machines/" + index, {
+          headers: {
+            "Content-Type": "application/json"
           }
-        )
+        })
         .then(response => {
           this.$emit("refresh");
         })
@@ -88,7 +89,6 @@ export default {
           console.error(e);
         });
     }
-    
   },
   mounted() {}
 };

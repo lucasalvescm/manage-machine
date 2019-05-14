@@ -56,7 +56,7 @@ export default {
         page = this.pageCurrent;
       }
       axios
-        .get("http://localhost:3001/api/status/?page=" + page)
+        .get("http://localhost/api/status/?page=" + page)
         .then(response => {
           if (response.data) {
             this.status = response.data.docs;

@@ -1,12 +1,11 @@
 <template>
   <div>
     <div class="modal is-active">
-       <div class="modal-background"></div>
-       <div class="modal-content">
-         
-         <div class="box">
-           <label class="label">Atualizar Máquina</label>
-           <div class="field">
+      <div class="modal-background"></div>
+      <div class="modal-content">
+        <div class="box">
+          <label class="label">Atualizar Máquina</label>
+          <div class="field">
             <label class="label" style="text-align:left">Nome</label>
             <div class="control">
               <input class="input" type="text" placeholder="Nome da máquina" v-model="name">
@@ -16,11 +15,11 @@
             <button class="button is-primary" @click="update()">Salvar</button>
             <button class="button is-danger" @click="$emit('close')">Cancelar</button>
           </div>
-         </div>
-       </div>
-       <button class="modal-close" @click="$emit('close')"></button> 
-     </div>
-   </div>
+        </div>
+      </div>
+      <button class="modal-close" @click="$emit('close')"></button>
+    </div>
+  </div>
 </template>
 <script>
 import axios from "axios";
@@ -28,20 +27,20 @@ export default {
   name: "modal-machine",
   props: ["machineToUpdate"],
   data() {
-    return{
+    return {
       name: this.machineToUpdate.name
-    }
+    };
   },
-  watch: { 
+  watch: {
     machineToUpdate: function(newVal, oldVal) {
-      this.name = newVal.name
+      this.name = newVal.name;
     }
   },
   methods: {
-    update(){
+    update() {
       axios
         .put(
-          "http://localhost:3001/api/machines/"+this.machineToUpdate._id,
+          "http://localhost/api/machines/" + this.machineToUpdate._id,
           {
             name: this.name
           },
@@ -52,7 +51,7 @@ export default {
           }
         )
         .then(response => {
-          this.name = ""
+          this.name = "";
           this.$emit("updateMachine");
         })
         .catch(e => {

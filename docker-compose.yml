@@ -19,6 +19,14 @@ services:
     networks:
       - app-network
 
+  web:
+    build:
+      context: ./client
+    container_name: web
+    restart: unless-stopped
+    networks:
+      - app-network
+
   webserver:
     image: nginx:mainline-alpine
     container_name: webserver

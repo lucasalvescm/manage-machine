@@ -116,7 +116,7 @@ export default {
     },
     getConfig() {
       axios
-        .get("http://localhost:3001/api/configcron")
+        .get("http://localhost/api/configcron")
         .then(response => {
           if (response.data) {
             console.log(response.data);
@@ -141,7 +141,7 @@ export default {
     createConfig(config) {
       axios
         .post(
-          "http://localhost:3001/api/configcron",
+          "http://localhost/api/configcron",
           {
             stringCron: config
           },
@@ -159,7 +159,7 @@ export default {
     updateConfig(index, config) {
       axios
         .put(
-          "http://localhost:3001/api/configcron/" + index,
+          "http://localhost/api/configcron/" + index,
           {
             stringCron: config
           },
