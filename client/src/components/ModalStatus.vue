@@ -46,7 +46,7 @@ export default {
     update() {
       axios
         .put(
-          "http://localhost/api/status/" + this.statusToUpdate._id,
+          "http://managemachine.ddns.net/api/status/" + this.statusToUpdate._id,
           {
             name: this.name,
             code: this.code

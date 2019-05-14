@@ -57,7 +57,7 @@ export default {
         page = this.pageCurrent;
       }
       axios
-        .get("http://localhost/api/machines/?page=" + page)
+        .get("http://managemachine.ddns.net/api/machines/?page=" + page)
         .then(response => {
           if (response.data) {
             this.machines = response.data.docs;

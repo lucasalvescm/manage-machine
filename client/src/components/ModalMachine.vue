@@ -40,7 +40,8 @@ export default {
     update() {
       axios
         .put(
-          "http://localhost/api/machines/" + this.machineToUpdate._id,
+          "http://managemachine.ddns.net/api/machines/" +
+            this.machineToUpdate._id,
           {
             name: this.name
           },

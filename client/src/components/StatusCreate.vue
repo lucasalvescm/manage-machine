@@ -45,7 +45,7 @@ export default {
     createStatus() {
       axios
         .post(
-          "http://localhost/api/status",
+          "http://managemachine.ddns.net/api/status",
           {
             name: this.name,
             code: this.code

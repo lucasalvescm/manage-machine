@@ -36,7 +36,7 @@ export default {
     createMachine() {
       axios
         .post(
-          "http://localhost/api/machines",
+          "http://managemachine.ddns.net/api/machines",
           {
             name: this.machine
           },

@@ -116,7 +116,7 @@ export default {
     },
     getConfig() {
       axios
-        .get("http://localhost/api/configcron")
+        .get("http://managemachine.ddns.net/api/configcron")
         .then(response => {
           if (response.data) {
             console.log(response.data);
@@ -141,7 +141,7 @@ export default {
     createConfig(config) {
       axios
         .post(
-          "http://localhost/api/configcron",
+          "http://managemachine.ddns.net/api/configcron",
           {
             stringCron: config
           },
@@ -159,7 +159,7 @@ export default {
     updateConfig(index, config) {
       axios
         .put(
-          "http://localhost/api/configcron/" + index,
+          "http://managemachine.ddns.net/api/configcron/" + index,
           {
             stringCron: config
           },

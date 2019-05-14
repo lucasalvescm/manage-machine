@@ -76,7 +76,7 @@ export default {
     },
     remover(index) {
       axios
-        .delete("http://localhost/api/status/" + index, {
+        .delete("http://managemachine.ddns.net/api/status/" + index, {
           headers: {
             "Content-Type": "application/json"
           }
