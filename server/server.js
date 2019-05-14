@@ -12,8 +12,11 @@ app.use(cors());
 
 
 // Configurando o db
-// const dbURI = "mongodb://localhost:27017/manage-machine"
-const dbURI = "mongodb://mongo:27017/manage-machine"
+let dbURI = "mongodb://localhost:27017/manage-machine"
+if (process.env.NODE_ENV === "production") {
+  dbURI = "mongodb://mongo:27017/manage-machine"
+}
+
 var db = mongoose.connection;
 db.on('connecting', function () {
   console.log('connecting to MongoDB...');

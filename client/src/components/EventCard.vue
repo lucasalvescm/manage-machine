@@ -102,7 +102,7 @@ export default {
   computed: {},
   methods: {
     saveConfig() {
-      let config = {
+      let configCron = {
         minuteSelected: this.minuteSelected,
         hourSelected: this.hourSelected,
         daySelected: this.daySelected,
@@ -110,9 +110,9 @@ export default {
         dayOfWeekSelected: this.dayOfWeekSelected
       };
       if (!this.idConfig) {
-        this.createConfig(config);
+        this.createConfig(configCron);
       } else {
-        this.updateConfig(this.idConfig, config);
+        this.updateConfig(this.idConfig, configCron);
       }
     },
     getConfig() {
@@ -139,12 +139,12 @@ export default {
         })
         .finally(() => (this.loading = false));
     },
-    createConfig(config) {
+    createConfig(configCron) {
       axios
         .post(
           config.API_LOCATION + "configcron",
           {
-            stringCron: config
+            stringCron: configCron
           },
           {
             headers: {
@@ -157,12 +157,12 @@ export default {
           console.error(e);
         });
     },
-    updateConfig(index, config) {
+    updateConfig(index, configCron) {
       axios
         .put(
           config.API_LOCATION + "configcron/" + index,
           {
-            stringCron: config
+            stringCron: configCron
           },
           {
             headers: {
