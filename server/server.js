@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const requireDir = require('require-dir');
-const cron = require("node-cron");
+
 
 // Iniciando o app
 const app = express();
@@ -28,6 +28,9 @@ db.on('error', function (error) {
 });
 db.on('connected', function () {
   console.log('MongoDB connected!');
+  // QUANDO O BANCO CONECTA, CHAMA A CRON PARA GERAR EVENTOS DE STATUS ALEATORIOS
+  const tasks = require('./src/tasks/EventTask');
+  tasks.startCron();
 });
 db.once('open', function () {
   console.log('MongoDB connection opened!');
@@ -48,8 +51,6 @@ requireDir("./src/models")
 // Inicando as rotas
 app.use('/api', require('./src/routes'));
 
-// CRONS
-const tasks = require('./src/tasks/EventTask');
-// cron.schedule("* * * * *", () => tasks.event());
+global.TASK = null;
 
 app.listen(3001, () => console.log(`Running in port ${3001}`));

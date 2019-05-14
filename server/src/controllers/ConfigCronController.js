@@ -1,12 +1,16 @@
 const mongoose = require('mongoose');
 
 const ConfigCron = mongoose.model('ConfigCron');
+const tasks = require('../tasks/EventTask');
 
 function generateStringCron(json) {
   let cron = null
   if (json.stringCron) {
-    cron = `${json.stringCron.minuteSelected} \
-    ${json.stringCron.hourSelected} \
+    cron = "*"
+    if (json.stringCron.minuteSelected != "*") {
+      cron += `/${json.stringCron.minuteSelected}`
+    }
+    cron += ` ${json.stringCron.hourSelected} \
     ${json.stringCron.daySelected} \
     ${json.stringCron.monthSelected} \
     ${json.stringCron.dayOfWeekSelected}`
@@ -37,6 +41,7 @@ module.exports = {
         console.log(removed)
       })
       const eventsMachine = await ConfigCron.create({ stringCron: stringCron, jsonParameters: req.body.stringCron });
+      tasks.startCron();
       return res.json(eventsMachine);
     }
 
@@ -52,6 +57,7 @@ module.exports = {
         { stringCron: stringCron, jsonParameters: req.body.stringCron },
         { new: true }
       );
+      tasks.startCron();
       return res.json(eventsMachine);
     }
     return res.json('')
