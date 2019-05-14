@@ -35,6 +35,7 @@
 <script>
 import StatusCreate from "./StatusCreate";
 import StatusList from "./StatusList";
+import config from "../config";
 import axios from "axios";
 export default {
   name: "todo-card",
@@ -56,7 +57,7 @@ export default {
         page = this.pageCurrent;
       }
       axios
-        .get("http://managemachine.ddns.net/api/status/?page=" + page)
+        .get(config.API_LOCATION + "status/?page=" + page)
         .then(response => {
           if (response.data) {
             this.status = response.data.docs;

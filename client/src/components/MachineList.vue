@@ -54,6 +54,7 @@
 <script>
 import axios from "axios";
 import ModalMachine from "./ModalMachine";
+import config from "../config";
 export default {
   name: "todo-list",
   props: ["machines"],
@@ -77,7 +78,7 @@ export default {
     },
     remove(index) {
       axios
-        .delete("http://managemachine.ddns.net/api/machines/" + index, {
+        .delete(config.API_LOCATION + "machines/" + index, {
           headers: {
             "Content-Type": "application/json"
           }

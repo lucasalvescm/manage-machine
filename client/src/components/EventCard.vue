@@ -60,6 +60,7 @@
 </template>
 
 <script>
+import config from "../config";
 import axios from "axios";
 export default {
   name: "event-card",
@@ -116,7 +117,7 @@ export default {
     },
     getConfig() {
       axios
-        .get("http://managemachine.ddns.net/api/configcron")
+        .get(config.API_LOCATION + "configcron")
         .then(response => {
           if (response.data) {
             console.log(response.data);
@@ -141,7 +142,7 @@ export default {
     createConfig(config) {
       axios
         .post(
-          "http://managemachine.ddns.net/api/configcron",
+          config.API_LOCATION + "configcron",
           {
             stringCron: config
           },
@@ -159,7 +160,7 @@ export default {
     updateConfig(index, config) {
       axios
         .put(
-          "http://managemachine.ddns.net/api/configcron/" + index,
+          config.API_LOCATION + "configcron/" + index,
           {
             stringCron: config
           },

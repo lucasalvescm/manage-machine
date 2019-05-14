@@ -27,6 +27,7 @@
 </template>
 <script>
 import axios from "axios";
+import config from "../config";
 export default {
   name: "modal-status",
   props: ["statusToUpdate"],
@@ -46,7 +47,7 @@ export default {
     update() {
       axios
         .put(
-          "http://managemachine.ddns.net/api/status/" + this.statusToUpdate._id,
+          config.API_LOCATION + "status/" + this.statusToUpdate._id,
           {
             name: this.name,
             code: this.code

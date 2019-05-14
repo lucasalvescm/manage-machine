@@ -53,6 +53,7 @@
 <script>
 import axios from "axios";
 import ModalStatus from "./ModalStatus";
+import config from "../config";
 export default {
   name: "status-list",
   props: ["status"],
@@ -76,7 +77,7 @@ export default {
     },
     remover(index) {
       axios
-        .delete("http://managemachine.ddns.net/api/status/" + index, {
+        .delete(config.API_LOCATION + "status/" + index, {
           headers: {
             "Content-Type": "application/json"
           }

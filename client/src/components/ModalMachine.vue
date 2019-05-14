@@ -23,6 +23,7 @@
 </template>
 <script>
 import axios from "axios";
+import config from "../config";
 export default {
   name: "modal-machine",
   props: ["machineToUpdate"],
@@ -40,8 +41,7 @@ export default {
     update() {
       axios
         .put(
-          "http://managemachine.ddns.net/api/machines/" +
-            this.machineToUpdate._id,
+          config.API_LOCATION + "machines/" + this.machineToUpdate._id,
           {
             name: this.name
           },

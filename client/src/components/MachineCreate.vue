@@ -24,6 +24,7 @@
   </div>
 </template>
 <script>
+import config from "../config";
 import axios from "axios";
 export default {
   name: "machine-create",
@@ -36,7 +37,7 @@ export default {
     createMachine() {
       axios
         .post(
-          "http://managemachine.ddns.net/api/machines",
+          config.API_LOCATION + "machines",
           {
             name: this.machine
           },

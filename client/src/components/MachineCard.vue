@@ -34,7 +34,7 @@
 <script>
 import MachineCreate from "./MachineCreate";
 import MachineList from "./MachineList";
-
+import config from "../config";
 import axios from "axios";
 export default {
   name: "todo-card",
@@ -57,7 +57,7 @@ export default {
         page = this.pageCurrent;
       }
       axios
-        .get("http://managemachine.ddns.net/api/machines/?page=" + page)
+        .get(config.API_LOCATION + "machines/?page=" + page)
         .then(response => {
           if (response.data) {
             this.machines = response.data.docs;

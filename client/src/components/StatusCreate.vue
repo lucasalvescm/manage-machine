@@ -33,6 +33,7 @@
 </template>
 <script>
 import axios from "axios";
+import config from "../config";
 export default {
   name: "novo-todo",
   data() {
@@ -45,7 +46,7 @@ export default {
     createStatus() {
       axios
         .post(
-          "http://managemachine.ddns.net/api/status",
+          config.API_LOCATION + "status",
           {
             name: this.name,
             code: this.code
