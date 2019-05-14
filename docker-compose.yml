@@ -1,4 +1,5 @@
-version: "2"
+version: '3'
+
 services:
   mongo:
     container_name: mongo
@@ -8,19 +9,30 @@ services:
     ports:
       - "27017:27017"
     networks:
-      - nodeapp-network
-  app:
-    container_name: manage-machine
-    restart: always
-    build: ./server
-    ports:
-      - "3001:3001"
-    links:
-      - mongo
+      - app-network
+  nodejs:
+    build:
+      context: ./server
+    image: nodejs
+    container_name: nodejs
+    restart: unless-stopped
     networks:
-      - nodeapp-network
-networks:
-  nodeapp-network:
-    driver: bridge
+      - app-network
 
-  
+  webserver:
+    image: nginx:mainline-alpine
+    container_name: webserver
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx-conf:/etc/nginx/conf.d
+    depends_on:
+      - nodejs
+    networks:
+      - app-network
+
+
+networks:
+  app-network:
+    driver: bridge  
