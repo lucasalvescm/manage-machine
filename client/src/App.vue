@@ -29,6 +29,8 @@
               <a class="navbar-item" @click="swapComponent('status-card')">Status</a>
 
               <a class="navbar-item" @click="swapComponent('event-card')">Configurações</a>
+
+              <a class="navbar-item" @click="swapComponent('log-event-card')">Logs de Eventos</a>
             </div>
 
             <div class="navbar-end"></div>
@@ -65,12 +67,14 @@
 import MachineCard from "./components/MachineCard";
 import StatusCard from "./components/StatusCard";
 import EventCard from "./components/EventCard";
+import LogEventCard from "./components/LogEventCard";
 export default {
   name: "app",
   components: {
     MachineCard,
     StatusCard,
-    EventCard
+    EventCard,
+    LogEventCard
   },
   methods: {
     swapComponent: function(component) {
